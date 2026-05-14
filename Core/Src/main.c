@@ -91,10 +91,11 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
+  HAL_TIM_Base_Start_IT(&htim1);          // starts timer + enables UIE interrupt
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
-  __HAL_TIM_MOE_ENABLE(&htim1);
+  TIM1->BDTR |= TIM_BDTR_MOE;            // direct register, more reliable than macro
   /* USER CODE END 2 */
 
   /* Infinite loop */
